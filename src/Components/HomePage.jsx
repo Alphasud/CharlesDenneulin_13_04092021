@@ -1,10 +1,15 @@
 import Nav from './Nav';
 import Footer from './Footer';
+import { useEffect } from 'react';
 import iconMoney from '../assets/img/icon-money.png';
 import iconChat from '../assets/img/icon-chat.png';
 import iconSecurity from '../assets/img/icon-security.png';
 
 function HomePage() {
+    useEffect(() => {
+        document.title = "Argent Bank - Home Page"
+    }, []);
+
     return (
 <>
     <Nav />
