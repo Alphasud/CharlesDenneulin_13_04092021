@@ -4,7 +4,7 @@ import argentBankLogo from "../assets/img/argentBankLogo.png";
 function Nav() {
     return (
     <>
-        <nav class="main-nav">
+        <nav className="main-nav">
             <NavLink className="main-nav-logo" to="/">
                 <img
                 className="main-nav-logo-image"
@@ -16,7 +16,7 @@ function Nav() {
         
             <div>
                 <NavLink className="main-nav-item" to="/sign-in">
-                    <i class="fa fa-user-circle"></i>
+                    <i className="fa fa-user-circle"></i>
                     Sign In
                 </NavLink>
             </div>
