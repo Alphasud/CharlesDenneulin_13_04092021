@@ -1,11 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import UserProfile from "./UserProfile";
+import { useHistory } from 'react-router-dom';
 
-function Profile() {
+function Auth() {
     const location = useLocation();
     const token = location.state;
-    console.log(token);
+
+    const history = useHistory();
 
     const [data, setData] = useState('');
     const [count, setCount] = useState(0);
@@ -24,18 +25,19 @@ function Profile() {
         setCount(count)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [count]);
-
-    console.log(data);
-    /* const firstName = data.body.firstName;
-    const email = data.body.email;
-    const lastName = data.body.lastName;
-    console.log(firstName + email + lastName); */
-    if(data.status === 200) return <UserProfile data={data} />
+    
+    if (data.status === 200) {
+            history.push({
+                pathname: `/user/${data.body.firstName}`,
+                state: data,
+                tokenNum: token
+            });
+        }
     return (
         <>
-           <div>ERROR</div>
+           <div>ERROR WITH AUTHENTICATION TOKEN</div>
         </>
     )
 }
 
-export default Profile;
+export default Auth;

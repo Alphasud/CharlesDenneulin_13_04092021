@@ -1,15 +1,19 @@
 import {
-  BrowserRouter as Router,
+  Router,
   Route,
   Switch
 } from "react-router-dom";
 import HomePage from "./HomePage";
 import SignIn from "./SignIn";
-import Profile from "./Profile";
+import Auth from "./Auth";
+import UserProfile from "./UserProfile";
+import EditProfile from "./EditProfile";
+import { createBrowserHistory } from 'history';
 
 function Routes() {
+    const history = createBrowserHistory();
     return (
-        <Router>
+        <Router history={history}>
             <Switch>
                 <Route exact path="/">
                     <HomePage />
@@ -17,8 +21,14 @@ function Routes() {
                 <Route path="/sign-in">
                     <SignIn />
                 </Route>
-                <Route path="/profile">
-                    <Profile />
+                <Route path="/auth">
+                    <Auth />
+                </Route>
+                <Route path="/user/:name">
+                    <UserProfile />
+                </Route>
+                <Route path="/user/:name/edit">
+                    <EditProfile />
                 </Route>
             </Switch>
         </Router>

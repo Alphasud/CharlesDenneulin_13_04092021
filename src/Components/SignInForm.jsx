@@ -3,6 +3,10 @@ import { useHistory } from 'react-router-dom';
 
 function SignInForm() {
 
+    useEffect(() => {
+      document.title = "Argent Bank - Sign In"
+  }, []);
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [data, setData] = useState('');
@@ -18,11 +22,11 @@ function SignInForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Username: ', username);
-        console.log('Password: ', password);
+        /* console.log('Username: ', username);
+        console.log('Password: ', password); */
         if (data.status === 200) {
             history.push({
-                pathname: '/profile/',
+                pathname: '/auth',
                 state: data.body.token
             });
         }
