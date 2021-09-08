@@ -1,33 +1,25 @@
 import { useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import Footer from './Footer';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
-import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function UserProfile() {
 
-    const history = useHistory();
+    const firstName = useSelector(state => state.userReducer.firstName);
+    const lastName = useSelector(state => state.userReducer.lastName);
 
-    const location = useLocation();
-    const data = location.state;
-    const token = location.tokenNum;
-
-    const firstName = data.body.firstName;
-    const lastName = data.body.lastName;
-
-    useEffect(() => {
+     useEffect(() => {
       document.title = `Argent Bank - ${firstName} ${lastName}`
-    }, [firstName, lastName]);
+    }, [firstName, lastName]); 
 
     const handleClickEdit = (event) => {
         event.preventDefault();
         console.log('Click');
-        history.push({
+        /* history.push({
                 pathname: `/user/${data.body.firstName}/edit`,
-                state: data,
-                tokenNumber: token
-            });
+            
+            }); */
     }
 
     return (
@@ -54,7 +46,7 @@ function UserProfile() {
             </nav>
             <main className="main bg-dark">
                 <div className="header">
-                    <h1>Welcome back<br />{firstName} {lastName}!</h1>
+                    <h1>Welcome back<br /> {firstName} {lastName} !</h1>
                     <button className="edit-button" onClick={handleClickEdit}>Edit Name</button>
                 </div>
                 <h2 className="sr-only">Accounts</h2>
