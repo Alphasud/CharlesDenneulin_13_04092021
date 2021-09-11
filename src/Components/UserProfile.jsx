@@ -2,24 +2,31 @@ import { useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import Footer from './Footer';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import history from "../history";
+import { logoutRequest } from '../actions';
 
 function UserProfile() {
+
+    const dispatch = useDispatch();
 
     const firstName = useSelector(state => state.userReducer.firstName);
     const lastName = useSelector(state => state.userReducer.lastName);
 
      useEffect(() => {
-      document.title = `Argent Bank - ${firstName} ${lastName}`
-    }, [firstName, lastName]); 
+         document.title = `Argent Bank - ${firstName} ${lastName}`
+     // eslint-disable-next-line react-hooks/exhaustive-deps    
+    }, []); 
 
     const handleClickEdit = (event) => {
         event.preventDefault();
-        console.log('Click');
-        /* history.push({
-                pathname: `/user/${data.body.firstName}/edit`,
-            
-            }); */
+        history.push({
+                pathname: `/edit-profile/${firstName}`,
+         });
+    }
+
+    const handleLogOut = () => {
+        dispatch(logoutRequest());   
     }
 
     return (
@@ -38,7 +45,7 @@ function UserProfile() {
                         <i className="fa fa-user-circle"></i>
                         {firstName}
                     </NavLink>
-                    <NavLink className="main-nav-item" to="/">
+                    <NavLink className="main-nav-item" to="/" onClick={handleLogOut}>
                         <i className="fa fa-sign-out"></i>
                         Sign Out
                     </NavLink>
@@ -53,7 +60,7 @@ function UserProfile() {
                 <section className="account">
                     <div className="account-content-wrapper">
                     <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-                    <p className="account-amount">$2,082.79</p>
+                        <p className="account-amount">${new Intl.NumberFormat('en-EN').format((Math.random() * (10603 - 249) + 249).toFixed(2))}</p>
                     <p className="account-amount-description">Available Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
@@ -63,7 +70,7 @@ function UserProfile() {
                 <section className="account">
                     <div className="account-content-wrapper">
                     <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-                    <p className="account-amount">$10,928.42</p>
+                    <p className="account-amount">${new Intl.NumberFormat('en-EN').format((Math.random() * (12698 - 1045) + 1045).toFixed(2))}</p>
                     <p className="account-amount-description">Available Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
@@ -73,7 +80,7 @@ function UserProfile() {
                 <section className="account">
                     <div className="account-content-wrapper">
                     <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-                    <p className="account-amount">$184.30</p>
+                    <p className="account-amount">${new Intl.NumberFormat('en-EN').format((Math.random() * (603 - 24) + 24).toFixed(2))}</p>
                     <p className="account-amount-description">Current Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">

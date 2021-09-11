@@ -6,10 +6,10 @@ import iconChat from '../assets/img/icon-chat.png';
 import iconSecurity from '../assets/img/icon-security.png';
 
 function HomePage() {
-
-    useEffect(() => {
-      document.title = "Argent Bank - Home Page"
-    }, []);
+  
+  useEffect(() => {
+    document.title = "Argent Bank - Home Page"
+  }, []);
   
     return (
 <>

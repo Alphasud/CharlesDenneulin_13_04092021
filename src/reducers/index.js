@@ -9,4 +9,12 @@ const allReducers = combineReducers({
     routerReducer: routerReducer
 });
 
-export default allReducers;
+const rootReducer = (state, action) => {
+  // when a logout action is dispatched it will reset redux state
+  if (action.type === 'USER_LOGGED_OUT') {
+    state = undefined;
+  }
+  return allReducers(state, action);
+};
+
+export default rootReducer;

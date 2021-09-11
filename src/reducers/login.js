@@ -1,19 +1,23 @@
-const loginReducer = (state = {token: '',  status:'', statusText: ''}, action) => {
+const loginReducer = (state = {token: '', status: '', message: ''}, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCESS':
             return state = {
                 token: action.payload.token,
-                status: 200,
-                statusText: 'Successfully logged in.'
+                status: action.payload.status,
+                message: action.payload.message
             }
         case 'LOGIN_FAILURE':
             return state = {
                 token: null,
                 status: action.payload.status,
-                statusText: action.payload.statusText
+                message: action.payload.message
             }
-        case 'LOGIN_USER_REQUEST':
-            return console.log('LOGIN USER REQUEST');
+        case 'RESET':
+            return state = {
+                token: null,
+                status: null,
+                message: null
+            }
         default:
             return state;
     }

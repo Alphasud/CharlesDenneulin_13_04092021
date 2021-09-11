@@ -1,73 +1,45 @@
-//import { pushState } from 'redux-router';
 import history from "../history";
 
-export const getUserInfo = (user) => {
+export const logoutRequest = () => {
     return {
-        type: 'RECEIVE_DATA',
-        payload: user
-    };
-};
-export const loginUserRequest = () => {
-    return {
-        type: 'LOGIN_USER_REQUEST'
+        type: 'USER_LOGGED_OUT'
     }
 }
 
-export const loginSuccess = (token) => {
+export const loginSuccess = (token, status, message) => {
     return {
         type: 'LOGIN_SUCCESS',
         payload: {
-            token: token
+            token: token,
+            status: status,
+            message: message
         }
     }
 }
 
-export const loginFailure = (error) => {
+export const loginFailure = (status, message) => {
     return {
         type: 'LOGIN_FAILURE',
         payload: {
-            status: error.response.status,
-            statusText: error.response.statusText
+            status: status,
+            message: message
         }
     }
 }
 
-export const loginUser = (user) => {
-    return (dispatch) => {
-        dispatch(loginUserRequest);
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "email": user[0],
-                "password": user[1]
-            })
-        };
-        return fetch('http://localhost:3001/api/v1/user/login', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                try {
-                    dispatch(loginSuccess(data.body.token));
-                    dispatch(accessProfile(data.body.token));
-                } catch (e) {
-                    dispatch(loginFailure(
-                        {
-                        response: {
-                            status: 403,
-                            statusText: 'Invalid token'
-                        }
-                    }));
-                }
-            })
-            .catch(error => {
-                dispatch(loginFailure(error));
-            })
-    }
-}
-
-export const fetchProfileDataRequest = () => {
+/* export const signUpFailure = (status, message) => {
     return {
-        type: 'FETCH_PROFILE_DATA_REQUEST'
+        type: 'SIGNUP_FAILURE',
+        payload: {
+            status: status,
+            message: message
+        }
+    }
+} */
+
+export const reset = () => {
+    return {
+        type: 'RESET'
     }
 }
 
@@ -81,8 +53,34 @@ export const receiveData = (data, status) => {
     }
 }
 
+export const loginUser = (username, password) => {
+    return (dispatch) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "email": username,
+                "password": password
+            })
+        };
+        return fetch('http://localhost:3001/api/v1/user/login', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                try {
+                    dispatch(loginSuccess(data.body.token, data.status, data.message));
+                    dispatch(accessProfile(data.body.token));
+                } catch(e) {
+                    dispatch(loginFailure(data.status, data.message));
+                }
+            })
+            .catch(error => {
+                dispatch(loginFailure(error));
+            })
+    }
+}
+
 export const accessProfile = (token) => {
-    return (dispatch, state) => {
+    return (dispatch) => {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -102,4 +100,65 @@ export const accessProfile = (token) => {
                 }
             })
        }
+}
+
+export const modifyName = (token, newFirstName, newLastName) => {
+    return (dispatch) => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                "firstName": newFirstName,
+                "lastName": newLastName
+            })
+        };
+        return fetch('http://localhost:3001/api/v1/user/profile', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                dispatch(receiveData(data.body, data.status));
+                dispatch(logoutRequest());
+                history.push(`/sign-in`);
+            })
+            .catch(error => {
+                if (error.response.status !== 200) {
+                    dispatch(loginFailure(error))
+                }
+        })
+    }
+}
+
+export const signUpUser = (email, password, firstName, lastName) => {
+    return (dispatch) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password,
+                "firstName": firstName,
+                "lastName": lastName
+            })
+        };
+        return fetch('http://localhost:3001/api/v1/user/signup', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    dispatch(logoutRequest())
+                    history.push(`/sign-in`);
+                } else {
+                    dispatch(loginFailure(data.status, data.message));
+                }
+                
+            })
+            .catch(error => {
+                if (error.response.status !== 200) {
+                    dispatch(loginFailure(error))
+                }
+        })
+    }
 }

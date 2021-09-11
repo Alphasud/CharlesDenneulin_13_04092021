@@ -1,56 +1,26 @@
-import { useLocation, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { modifyName } from "../actions";
+import Nav from './Nav';
+
 
 function EditProfile() {
 
-    const history = useHistory();
-    const location = useLocation();
+    const dispatch = useDispatch();
 
-    /* const data = location.state; */
-    const token = location.tokenNum;
-
+    const token = useSelector(state => state.loginReducer.token);
     const [newFirstName, setNewFirstName] = useState('');
     const [newLastName, setNewLastName] = useState('');
-
-    const handleFirstNameChange = (event) => {
-        setNewFirstName(event.target.value);
-    }
-
-    const handleLastNameChange = (event) => {
-        setNewLastName(event.target.value);
-    }
-
-    const [dataResponse, setDataResponse] = useState('');
-
-    useEffect(() => {
-        const requestOptions = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                "firstName": newFirstName,
-                "LastName": newLastName
-            })
-        };
-        fetch('http://localhost:3001/api/v1/user/profile', requestOptions)
-            .then(response => response.json())
-            .then(data => setDataResponse(data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [newFirstName, newLastName]);
-
+   
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (dataResponse.status === 200) {
-            history.push({
-                pathname: `/user/${newFirstName}`,
-            });
-        }
-    };
+        dispatch(modifyName(token, newFirstName, newLastName))  
+    }
 
     return (
-            <>
+        <>
+            <Nav />
+            <section className="sign-in-content">
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <label htmlFor="username">First Name</label>
@@ -60,7 +30,7 @@ function EditProfile() {
                             type="text"
                             id="firstName"
                             value={newFirstName}
-                            onChange={handleFirstNameChange}
+                            onChange={(event) => setNewFirstName(event.target.value)}
                         />
                     </div>
                     <div className="input-wrapper">
@@ -71,11 +41,12 @@ function EditProfile() {
                             type="text"
                             id="lastName"
                             value={newLastName}
-                            onChange={handleLastNameChange}
+                            onChange={(event) => setNewLastName(event.target.value)}
                         />
                     </div>
                     <button className="sign-in-button" type="submit">Edit</button>
                 </form>
+                </section>
             </>
         )
 }
