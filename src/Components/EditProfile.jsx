@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { modifyName } from "../actions";
 import Nav from './Nav';
+import Footer from './Footer';
 
 
 function EditProfile() {
@@ -20,7 +21,10 @@ function EditProfile() {
     return (
         <>
             <Nav />
+            <main className="main bg-dark">
             <section className="sign-in-content">
+                <i className="fa fa-edit sign-in-icon"></i>
+                <h1>Edit Your Personal Infos</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <label htmlFor="username">First Name</label>
@@ -47,6 +51,8 @@ function EditProfile() {
                     <button className="sign-in-button" type="submit">Edit</button>
                 </form>
                 </section>
+            </main>
+            <Footer />
             </>
         )
 }

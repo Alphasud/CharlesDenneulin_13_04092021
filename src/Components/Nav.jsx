@@ -25,7 +25,7 @@ function Nav() {
                 />
                 <h1 className="sr-only">Argent Bank</h1>
             </NavLink>
-            <div>
+            <div className="main-nav-link">
                 <NavLink className="main-nav-item" to={status === 200 ? `/user/${user}` : '/sign-in'}>
                     <i className="fa fa-user-circle"></i>
                     {status === 200 ? user : 'Sign In'}

@@ -92,7 +92,7 @@ export const accessProfile = (token) => {
             .then(response => response.json())
             .then(data => {
                 dispatch(receiveData(data.body, data.status));
-                history.push(`/user/${data.body.firstName}`);
+                history.push(`/user/${(data.body.firstName).toLowerCase()}`);
             })
             .catch(error => {
                 if(error.response.status === 401) {

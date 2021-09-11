@@ -13,12 +13,14 @@ body {
   min-height: 100vh;
 }
 
-.main {
-  flex: 1;
+.App {
+  display: flex;
+  flex-direction: column;
 }
 
 .bg-dark {
   background-color: #12002b;
+  height: 80vh;
 }
 
 .sr-only {
@@ -49,6 +51,12 @@ body {
 
 .main-nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.main-nav-link {
+  width: 12.5rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-nav-item {
@@ -163,14 +171,16 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  border-radius: 5px;
 }
 
 .sign-in-content {
   box-sizing: border-box;
-  background-color: white;
-  width: 300px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  width: 25rem;
   margin: 0 auto;
-  margin-top: 3rem;
+  margin-top: 5rem;
   padding: 2rem;
 }
 
@@ -200,6 +210,7 @@ body {
 .input-wrapper input {
   padding: 5px;
   font-size: 1.2rem;
+  border-radius: 5px;
 }
 
 .footer {
@@ -227,6 +238,7 @@ body {
   box-sizing: border-box;
   text-align: left;
   margin-bottom: 2rem;
+  border-radius: 5px;
 }
 
 .account-amount {
@@ -252,11 +264,13 @@ body {
 }
 
 .edit-button {
+  cursor: pointer;
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
   font-weight: bold;
   padding: 10px;
+  border-radius: 5px;
 }
 
 .header {
@@ -265,6 +279,7 @@ body {
 }
 
 .transaction-button {
+  cursor: pointer;
   display: block;
   width: 100%;
   padding: 8px;
@@ -274,6 +289,7 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  border-radius: 5px;
 }
 
 @media (min-width: 720px) {

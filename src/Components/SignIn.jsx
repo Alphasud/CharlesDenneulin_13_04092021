@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser, reset } from '../actions';
 import Footer from './Footer';
 import Nav from './Nav';
-import { useSelector } from 'react-redux';
-import { loginUser, reset } from '../actions';
-import { useDispatch } from 'react-redux';
 
 
 function SignIn() {
@@ -13,12 +12,12 @@ function SignIn() {
   const status = useSelector(state => state.loginReducer.status);
   const message = useSelector(state => state.loginReducer.message);  
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
    
   const handleSubmit = (event) => {
       event.preventDefault();
-      dispatch(loginUser(username, password));
+      dispatch(loginUser(email, password));
   };
     
   useEffect(() => {
@@ -35,14 +34,14 @@ function SignIn() {
                 <h1>Sign In</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="email">Email</label>
                         <input
-                            placeholder="User Name"
-                            name="username"
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(event) => setUsername(event.target.value)}
+                            placeholder="Email"
+                            name="email"
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
                         />
                     </div>
                     <div className="input-wrapper">

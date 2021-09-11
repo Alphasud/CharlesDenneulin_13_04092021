@@ -21,7 +21,7 @@ function UserProfile() {
     const handleClickEdit = (event) => {
         event.preventDefault();
         history.push({
-                pathname: `/edit-profile/${firstName}`,
+                pathname: `/edit-profile/${(firstName).toLowerCase()}`,
          });
     }
 
