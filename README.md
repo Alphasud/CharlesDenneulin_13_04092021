@@ -25,17 +25,9 @@ Once the API runs, you can start this project.
 - Run the project :
 `npm start`
 
-It will runs the app in development mode.\
-Open [http://localhost:3001](http://localhost:300à) to view it in the browser.
+It will run the app in development mode.\
+Open [http://localhost:3001](http://localhost:300à) to view it in your browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
 
 
