@@ -20,7 +20,7 @@ Once the API runs, you can start this project.
 `git clone https://github.com/Alphasud/CharlesDenneulin_13_04092021.git`
 - Go to the project folder :
 `cd CharlesDenneulin_13_04092021`
-- Install the packages, this project uses both with npm :
+- Install the packages, this project uses npm :
 `npm i`
 - Run the project :
 `npm start`
