@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
-import { NavLink } from "react-router-dom";
-import Footer from './Footer';
-import argentBankLogo from '../assets/img/argentBankLogo.png';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import history from "../history";
-import { logoutRequest } from '../actions';
+import Nav from './Nav';
+import Footer from './Footer';
 
 function UserProfile() {
 
-    const dispatch = useDispatch();
-
     const firstName = useSelector(state => state.userReducer.firstName);
     const lastName = useSelector(state => state.userReducer.lastName);
+    const id = useSelector(state => state.userReducer.id);
+    const creationDate = new Date(Date.parse(useSelector(state => state.userReducer.createdAt))).toLocaleString();
+    const updatedAt = new Date(Date.parse(useSelector(state => state.userReducer.updatedAt))).toLocaleString();
 
      useEffect(() => {
          document.title = `Argent Bank - ${firstName} ${lastName}`
@@ -25,32 +24,9 @@ function UserProfile() {
          });
     }
 
-    const handleLogOut = () => {
-        dispatch(logoutRequest());   
-    }
-
     return (
         <>
-            <nav className="main-nav">
-                <NavLink className="main-nav-logo" to="/">
-                    <img
-                        className="main-nav-logo-image"
-                        src={argentBankLogo}
-                        alt="Argent Bank Logo"
-                    />
-                    <h1 className="sr-only">Argent Bank</h1>
-                </NavLink>
-                <div>
-                    <NavLink className="main-nav-item" to="/">
-                        <i className="fa fa-user-circle"></i>
-                        {firstName}
-                    </NavLink>
-                    <NavLink className="main-nav-item" to="/" onClick={handleLogOut}>
-                        <i className="fa fa-sign-out"></i>
-                        Sign Out
-                    </NavLink>
-                </div>
-            </nav>
+            <Nav />
             <main className="main bg-dark">
                 <div className="header">
                     <h1>Welcome back<br /> {firstName} {lastName} !</h1>
@@ -87,6 +63,11 @@ function UserProfile() {
                     <button className="transaction-button">View transactions</button>
                     </div>
                 </section>
+                <div className="customer-info">
+                    <p>Member ID : {id}</p>
+                    <p>Member since : {creationDate} </p>
+                    <p>Last modified : {updatedAt}</p>
+                </div>
             </main>
             <Footer />
         </>

@@ -20,7 +20,7 @@ body {
 
 .bg-dark {
   background-color: #12002b;
-  height: 80vh;
+  height: 84vh;
 }
 
 .sr-only {
@@ -309,4 +309,21 @@ body {
 .error-login {
   color:#ff0000;
 }
+
+.customer-info {
+  position: absolute;
+  top: 6rem;
+  left: 2rem;
+  background-color: #00bc77;
+  width: 30%;
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 2px 0;
+}
+.customer-info p {
+   color: #12002b;
+   font-weight: 600;
+   font-size: .75rem;
+}
+
 
