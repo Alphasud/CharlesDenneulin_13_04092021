@@ -2,6 +2,7 @@ import userReducer from "./user";
 import { combineReducers } from 'redux';
 import loginReducer from "./login";
 import { routerReducer } from 'react-router-redux';
+import { withReduxStateSync } from 'redux-state-sync';
 
 const allReducers = combineReducers({
     userReducer: userReducer,
@@ -17,4 +18,5 @@ const rootReducer = (state, action) => {
   return allReducers(state, action);
 };
 
-export default rootReducer;
+//export default rootReducer;
+export default withReduxStateSync(rootReducer);

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import history from "../history";
 import Nav from './Nav';
 import Footer from './Footer';
+import HomePage from './HomePage';
 
 function UserProfile() {
 
@@ -13,9 +14,8 @@ function UserProfile() {
     const updatedAt = new Date(Date.parse(useSelector(state => state.userReducer.updatedAt))).toLocaleString();
 
      useEffect(() => {
-         document.title = `Argent Bank - ${firstName} ${lastName}`
-     // eslint-disable-next-line react-hooks/exhaustive-deps    
-    }, []); 
+         document.title = `Argent Bank - ${firstName} ${lastName}`;  
+    }, [firstName, lastName]); 
 
     const handleClickEdit = (event) => {
         event.preventDefault();
@@ -24,6 +24,13 @@ function UserProfile() {
          });
     }
 
+    if (!firstName) {
+        history.push({
+                pathname: `/`
+        });
+        return <HomePage />
+    } 
+  
     return (
         <>
             <Nav />

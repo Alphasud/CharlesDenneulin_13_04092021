@@ -27,16 +27,6 @@ export const loginFailure = (status, message) => {
     }
 }
 
-/* export const signUpFailure = (status, message) => {
-    return {
-        type: 'SIGNUP_FAILURE',
-        payload: {
-            status: status,
-            message: message
-        }
-    }
-} */
-
 export const reset = () => {
     return {
         type: 'RESET'
